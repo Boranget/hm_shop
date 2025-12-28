@@ -21,8 +21,8 @@ class _HmCategoryState extends State<HmCategory> {
             width: 80,
             height: 100,
             color: Colors.red,
-            child: Text("分类$index", style: TextStyle(color: Colors.white)),
             margin: EdgeInsets.symmetric(horizontal: 5),
+            child: Text("分类$index", style: TextStyle(color: Colors.white)),
           );
         },
       ),
