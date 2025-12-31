@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/components/Home/HmCategory.dart';
 import 'package:hm_shop/components/Home/HmHot.dart';
 import 'package:hm_shop/components/Home/HmMoreList.dart';
@@ -14,25 +15,13 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<BannerItem> _bannerList = [
-    BannerItem(
-      id: "1",
-      imgUrl: "https://pic.616pic.com/ys_bnew_img/00/28/89/aRQRMpx4Sf.jpg",
-    ),
-    BannerItem(
-      id: "1",
-      imgUrl: "https://pic.616pic.com/ys_bnew_img/00/28/89/aRQRMpx4Sf.jpg",
-    ),
-    BannerItem(
-      id: "1",
-      imgUrl: "https://pic.616pic.com/ys_bnew_img/00/28/89/aRQRMpx4Sf.jpg",
-    ),
-  ];
+  List<BannerItem> _bannerList = [];
+  List<CategoryItem> _categoryList = [];
   List<Widget> _getScrollChildren() {
     return [
       SliverToBoxAdapter(child: HmSlider(bannerList: _bannerList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: HmCategory()),
+      SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(child: HmSuggestion()),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
@@ -54,7 +43,24 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _getBannerList();
+    _getCategoryList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: _getScrollChildren());
+  }
+
+  void _getBannerList() async {
+    _bannerList = await getBannerListAPI();
+    setState(() {});
+  }
+
+  void _getCategoryList() async {
+    _categoryList = await getCategoryListAPI();
+    setState(() {});
   }
 }

@@ -11,7 +11,7 @@ class HmSlider extends StatefulWidget {
 }
 
 class _HmSliderState extends State<HmSlider> {
-  CarouselSliderController _controller = CarouselSliderController();
+  final CarouselSliderController _controller = CarouselSliderController();
   int _currentIndex = 0;
   Widget _getSlider() {
     final double screenWidth = MediaQuery.of(context).size.width;
