@@ -32,3 +32,96 @@ class CategoryItem {
     );
   }
 }
+
+// 新增：对应 result 字段
+class SpecialRecommendResult {
+  String id;
+  String title;
+  List<SubType> subTypes;
+  SpecialRecommendResult({
+    required this.id,
+    required this.title,
+    required this.subTypes,
+  });
+  factory SpecialRecommendResult.fromJson(Map<String, dynamic> json) {
+    return SpecialRecommendResult(
+      id: json["id"] ?? "",
+      title: json["title"] ?? "",
+      subTypes: List.generate(
+        json["subTypes"].length,
+        (index) => SubType.fromJson(json["subTypes"][index]),
+      ),
+    );
+  }
+}
+
+// 新增：对应 subTypes 中的每一项
+class SubType {
+  String id;
+  String title;
+  GoodsItems goodsItems;
+  SubType({required this.id, required this.title, required this.goodsItems});
+  factory SubType.fromJson(Map<String, dynamic> json) {
+    return SubType(
+      id: json["id"] ?? "",
+      title: json["title"] ?? "",
+      goodsItems: GoodsItems.fromJson(json["goodsItems"]),
+    );
+  }
+}
+
+// 新增：对应 goodsItems 字段
+class GoodsItems {
+  int counts;
+  int pageSize;
+  int pages;
+  int page;
+  List<GoodsItem> items;
+  GoodsItems({
+    required this.counts,
+    required this.pageSize,
+    required this.pages,
+    required this.page,
+    required this.items,
+  });
+  factory GoodsItems.fromJson(Map<String, dynamic> json) {
+    return GoodsItems(
+      counts: json["counts"] as int? ?? 0,
+      pageSize: json["pageSize"] as int? ?? 0,
+      pages: json["pages"] as int? ?? 0,
+      page: json["page"] as int? ?? 0,
+      items: List.generate(
+        json["items"].length,
+        (index) => GoodsItem.fromJson(json["items"][index]),
+      ),
+    );
+  }
+}
+
+// 新增：对应 items 中的每一个商品
+class GoodsItem {
+  String id;
+  String name;
+  String desc;
+  String price;
+  String picture;
+  int orderNum;
+  GoodsItem({
+    required this.id,
+    required this.name,
+    required this.desc,
+    required this.price,
+    required this.picture,
+    required this.orderNum,
+  });
+  factory GoodsItem.fromJson(Map<String, dynamic> json) {
+    return GoodsItem(
+      id: json["id"] ?? "",
+      name: json["name"] ?? "",
+      desc: json["desc"] ?? "",
+      price: json["price"] ?? "",
+      picture: json["picture"] ?? "",
+      orderNum: json["orderNum"] as int? ?? 0,
+    );
+  }
+}

@@ -19,3 +19,18 @@ Future<List<CategoryItem>> getCategoryListAPI() async {
       )
       .toList();
 }
+
+Future<SpecialRecommendResult> getProductListAPI() async {
+  final res = await dioRequest.get(HttpConstants.PRODUCT_LIST);
+  return SpecialRecommendResult.fromJson(res);
+}
+
+Future<SpecialRecommendResult> getInVogueListAPI() async {
+  final res = await dioRequest.get(HttpConstants.IN_VOGUE_LIST);
+  return SpecialRecommendResult.fromJson(res);
+}
+
+Future<SpecialRecommendResult> getOneStopListAPI() async {
+  final res = await dioRequest.get(HttpConstants.ONE_STOP_LIST);
+  return SpecialRecommendResult.fromJson(res);
+}
