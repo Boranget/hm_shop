@@ -125,3 +125,57 @@ class GoodsItem {
     );
   }
 }
+
+// 列表类型：商品详情项（继承自GoodsItem）
+class GoodDetailItem extends GoodsItem {
+  int payCount = 0;
+
+  /// 商品详情项构造方法
+  GoodDetailItem({
+    required super.id,
+    required super.name,
+    required super.price,
+    required super.picture,
+    required super.orderNum,
+    required this.payCount,
+  }) : super(desc: ""); // 调用父类构造，desc默认空字符串
+
+  /// 转化方法：从JSON映射生成GoodDetailItem实例
+  factory GoodDetailItem.fromJSON(Map<String, dynamic> json) {
+    return GoodDetailItem(
+      id: json["id"]?.toString() ?? "",
+      name: json["name"]?.toString() ?? "",
+      price: json["price"]?.toString() ?? "",
+      picture: json["picture"]?.toString() ?? "",
+      orderNum: int.tryParse(json["orderNum"]?.toString() ?? "0") ?? 0,
+      payCount: int.tryParse(json["payCount"]?.toString() ?? "0") ?? 0,
+    );
+  }
+}
+
+class GoodsDetailsItems {
+  int counts;
+  int pageSize;
+  int pages;
+  int page;
+  List<GoodDetailItem> items;
+  GoodsDetailsItems({
+    required this.counts,
+    required this.pageSize,
+    required this.pages,
+    required this.page,
+    required this.items,
+  });
+  factory GoodsDetailsItems.fromJSON(Map<String, dynamic> json) {
+    return GoodsDetailsItems(
+      counts: json["counts"] as int? ?? 0,
+      pageSize: json["pageSize"] as int? ?? 0,
+      pages: json["pages"] as int? ?? 0,
+      page: json["page"] as int? ?? 0,
+      items: List.generate(
+        json["items"].length,
+        (index) => GoodDetailItem.fromJSON(json["items"][index]),
+      ),
+    );
+  }
+}
